@@ -1,17 +1,14 @@
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 100;
-var playerAttack = 10;
-var playerMoney = 10;
-
-var enemyNames = ['Roborto', 'Amy Android', 'Robo Trumble'];
-var enemyHealth = 50;
-var enemyAttack = 12;
 
 console.log(enemyNames);
 console.log(enemyNames.length);
 console.log(enemyNames[0]);
 console.log(enemyNames[3]);
+var randomNumber = function (min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
 
+  return value;
+}
 var shop = function() {
   var shopOptionPrompt = window.prompt(
     "Would you like to REFIL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
@@ -71,14 +68,14 @@ var fight = function(enemyName) {
       if (confirmSkip) {
         window.alert(playerName + ' has decided to skip this fight. Goodbye!');
         // subtract money from playerMoney for skipping
-        playerMoney = playerMoney - 10;
+        playerMoney = Math.max(0, playerMoney - 10);
         console.log("playerMoney", playerMoney);
         break;
       }
     }
-
+    var damage = randomNumber(playerAttack - 3, playerAttack);
     // remove enemy's health by subtracting the amount set in the playerAttack variable
-    enemyHealth = enemyHealth - playerAttack;
+    enemyHealth = Math.max(0, enemyHealth - damage);
     console.log(
       playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
     );
@@ -97,7 +94,8 @@ var fight = function(enemyName) {
     }
 
     // remove players's health by subtracting the amount set in the enemyAttack variable
-    playerHealth = playerHealth - enemyAttack;
+    var damage = randomNumber(enemyAttack - 3, enemyAttack);
+    playerHealth = Math.max(0, playerHealth - damage);
     console.log(
       enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
     );
@@ -114,6 +112,9 @@ var fight = function(enemyName) {
 };
 
 var startGame = function() {
+  var enemyNames = ['Roborto', 'Amy Android', 'Robo Trumble'];
+  var enemyHealth = randomNumber(40, 60);
+  var enemyAttack = 12;
     playerHealth = 100;
     playerAttack = 10;
     playerMoney = 10;
