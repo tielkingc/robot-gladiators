@@ -12,6 +12,47 @@ console.log(enemyNames.length);
 console.log(enemyNames[0]);
 console.log(enemyNames[3]);
 
+var shop = function() {
+  var shopOptionPrompt = window.prompt(
+    "Would you like to REFIL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
+  )
+  
+  switch (shopOptionPrompt) {
+    case "refill":
+      if (playerMoney  >= 7) {
+        window.alert("REfilling player's health by 20 for 7 dollars.");
+
+        playerHealth = playerHealth + 20;
+        playerMoney = playerMoney - 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+    break;
+      
+    case "upgrade":
+      if (playerMoney >= 7) {
+        window.alert("Upgrading player's attack by 6 for 7 dollars.");
+
+        playerAttack = playerAttack + 6;
+        playerMoney = playerMoney - 7;
+      }
+      else{
+        window.alert("You don't have enough money!")
+      }
+      
+      break;
+    case "leave":
+      window.alert("Leaving the store.");
+      break;
+    default:
+      window.alert("You did not pick a valid option. Try again.");
+
+      shop();
+      break;
+  }
+}
+
 // fight function (now with parameter for enemy's name)
 var fight = function(enemyName) {
   while (playerHealth > 0 && enemyHealth > 0) {
@@ -77,21 +118,29 @@ var startGame = function() {
     for (var i = 0; i < enemyNames.length; i++) {
     // if player is still alive, keep fighting
         if (playerHealth > 0) {
-        // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
-        window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
-    
-        // pick new enemy to fight based on the index of the enemyNames array
-        var pickedEnemyName = enemyNames[i];
-    
-        // reset enemyHealth before starting new fight
-        enemyHealth = 50;
-    
-        // use debugger to pause script from running and check what's going on at that moment in the code
-        // debugger;
-    
-        // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-        fight(pickedEnemyName);
-        }
+          // let player know what round they are in, remember that arrays start at 0 so it needs to have 1 added to it
+          window.alert('Welcome to Robot Gladiators! Round ' + (i + 1));
+      
+          // pick new enemy to fight based on the index of the enemyNames array
+          var pickedEnemyName = enemyNames[i];
+      
+          // reset enemyHealth before starting new fight
+          enemyHealth = 50;
+      
+          // use debugger to pause script from running and check what's going on at that moment in the code
+          // debugger;
+      
+          // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
+          fight(pickedEnemyName);
+          }
+          if (playerHealth > 0 && i < enemyNames.length - 1) {
+            var storeConfirm = window.confirm("The fight is over, visit the store before the next round?")
+            
+            if (storeConfirm) {
+              shop();
+            }
+            
+          }
         // if player isn't alive, stop the game
         else {
         window.alert('You have lost your robot in battle! Game Over!');
