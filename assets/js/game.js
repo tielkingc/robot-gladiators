@@ -18,6 +18,7 @@ var shop = function() {
   )
   
   switch (shopOptionPrompt) {
+    case "REFILL":
     case "refill":
       if (playerMoney  >= 7) {
         window.alert("REfilling player's health by 20 for 7 dollars.");
@@ -30,6 +31,7 @@ var shop = function() {
       }
     break;
       
+    case "UPGRADE":
     case "upgrade":
       if (playerMoney >= 7) {
         window.alert("Upgrading player's attack by 6 for 7 dollars.");
@@ -42,6 +44,7 @@ var shop = function() {
       }
       
       break;
+    case "LEAVE":
     case "leave":
       window.alert("Leaving the store.");
       break;
